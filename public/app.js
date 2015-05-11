@@ -1,1 +1,1 @@
-console.log("app.js running")
+document.write("it works")

@@ -1,16 +1,18 @@
-{% set x = 7 %}
+{% set title = "Flask Example" %}
+<!DOCTYPE html>
 <html>
   <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
+    <meta charset="utf-8">
+    <title>{{title}}</title>
   </head>
   <body>
-      <h1>Hello</h1>
-      <p>2 + 3 = {{ 2 + 3 }}</p>
-      <p>x = {{x}}</p>
-      <script src="app.js"></script>
+      <h1>{{title}}</h1>
+      <p>template test: 2 + 3 = {{ 2 + 3 }}</p>
+      {% set x = 7 %}
+      <p>variable test: x = {{x}}</p>
+      {% set result = db.engine.execute('select 2 + 2') %}
+      <p>database test: 2 + 2 = {{result.first()[0]}}</p>
+      <p>static file test: <script src="app.js"></script></p>
+      <p>request object: {{ request }}</p>
   </body>
 </html>

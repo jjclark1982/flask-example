@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import os
-from flask import Flask, render_template, send_from_directory, redirect
+import database
+from flask import Flask, request, render_template, send_from_directory, redirect
 
 app = Flask(__name__.split('.')[0], template_folder='public')
 app.debug = ('DEBUG' in os.environ)
@@ -24,7 +25,7 @@ def serve_file(path):
     # serve a template file
     basename, extname = os.path.splitext(path)
     if extname == '.html':
-        return render_template(path)
+        return render_template(path, db=database, request=request)
 
     # serve a static file
     else:
@@ -33,7 +34,3 @@ def serve_file(path):
 # For running this file directly
 if __name__ == '__main__':
     app.run()
-
-# For running as a gunicorn worker
-import multiprocessing
-workers = multiprocessing.cpu_count() * 2 + 1
