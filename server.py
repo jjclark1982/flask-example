@@ -2,6 +2,8 @@
 
 import os
 from flask import Flask, render_template, send_from_directory, redirect
+import multiprocessing
+workers = multiprocessing.cpu_count()
 
 app = Flask(__name__.split('.')[0], template_folder='public')
 app.debug = ('DEBUG' in os.environ)
@@ -31,3 +33,4 @@ def serve_file(path):
 
 if __name__ == '__main__':
     app.run()
+
