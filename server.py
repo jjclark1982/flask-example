@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 import os
-import database
-from flask import Flask, request, render_template, send_from_directory, redirect
+if 'DATABASE' in os.environ:
+    import database
+else:
+    database = None
+from flask import Flask, request, session, render_template, send_from_directory, redirect
 
 app = Flask(__name__.split('.')[0], template_folder='public')
 app.debug = ('DEBUG' in os.environ)
@@ -25,7 +28,7 @@ def serve_file(path):
     # serve a template file
     basename, extname = os.path.splitext(path)
     if extname == '.html':
-        return render_template(path, db=database, request=request)
+        return render_template(path, db=database, request=request, session=session)
 
     # serve a static file
     else:

@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine
 
-engine = create_engine(os.environ['DATABASE'])
+engine = create_engine(os.environ.get('DATABASE'))
 
 if __name__ == '__main__':
     result = engine.execute('select 1')

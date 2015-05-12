@@ -6,13 +6,39 @@
     <title>{{title}}</title>
   </head>
   <body>
-      <h1>{{title}}</h1>
-      <p>template test: 2 + 3 = {{ 2 + 3 }}</p>
+    <h1>{{title}}</h1>
+    <p>
+      template test:
+      2 + 3 = {{ 2 + 3 }}
+    </p>
+    <p>
+      filtering test:
+      {{ 'blah' }}
+      {{ '<b>blah</b>' }}
+      {{ '<b>blah</b>'|safe }}
+    </p>
+    <p>
+      variable test:
       {% set x = 7 %}
-      <p>variable test: x = {{x}}</p>
-      {% set result = db.engine.execute('select 2 + 2') %}
-      <p>database test: 2 + 2 = {{result.first()[0]}}</p>
-      <p>static file test: <script src="app.js"></script></p>
-      <p>request object: {{ request }}</p>
+      x = {{x}}
+    </p>
+    <p>
+      database test:
+      {% if db %}
+        {% set result = db.engine.execute('select 2 + 2') %}
+         2 + 2 = {{result.first()[0]}}</p>
+      {% else %}
+        no database
+      {% endif %}
+    </p>
+    <p>
+      static file test:
+      <script src="app.js"></script>
+    </p>
+    <p>
+      http objects:
+      {{ request }}
+      {{ session }}
+    </p>
   </body>
 </html>
