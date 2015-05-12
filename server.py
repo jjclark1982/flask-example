@@ -10,18 +10,14 @@ from flask import Flask, request, session, render_template, send_from_directory,
 app = Flask(__name__.split('.')[0], template_folder='public')
 app.debug = ('DEBUG' in os.environ)
 
-# General-purpose route handlers
-
-@app.route('/')
-def index():
-    return serve_file('/index.html')
-
+# Catch-all route handler
+@app.route('/', defaults={'path': '/'})
 @app.route('/<path:path>')
 def serve_file(path):
     # serve a directory
     if os.path.isdir(os.path.join('public', path)):
         if path[-1] == '/':
-            return serve_file(path + '/index.html')
+            return serve_file(path + 'index.html')
         else:
             return redirect(path+'/')
 
