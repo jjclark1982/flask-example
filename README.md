@@ -10,13 +10,13 @@ Compatible with most Platform-as-a-service providers.
 
 ### Configuration
 
-    export DATABASE=postgresql+pypostgresql://username:password@host:port/database
+    export DATABASE_URL=postgresql+pypostgresql://username:password@host:port/database
     export WEB_CONCURRENCY=4
     export DEBUG=1
 
 PROTIP: spin up a database
 
-    DB_CONTAINER=$(docker run -e POSTGRES_PASSWORD=$(pwgen 12 1) -P -d postgres)
+    DB_CONTAINER=$(docker run -e POSTGRES_PASSWORD=$(pwgen 16 1) -P -d postgres)
     docker inspect $DB_CONTAINER | grep 'POSTGRES_PASSWORD\|HostPort'
 
 ### Usage

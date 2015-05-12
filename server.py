@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-if 'DATABASE' in os.environ:
+if 'DATABASE_URL' in os.environ:
     import database
 else:
     database = None

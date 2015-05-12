@@ -1,7 +1,9 @@
 import os
-from sqlalchemy import create_engine
+import sqlalchemy
 
-engine = create_engine(os.environ.get('DATABASE'))
+databse_url = sqlalchemy.engine.url.make_url(os.environ.get("DATABASE_URL"))
+databse_url.drivername = 'postgresql+pypostgresql'
+engine = sqlalchemy.create_engine(databse_url)
 
 if __name__ == '__main__':
     result = engine.execute('select 1')
