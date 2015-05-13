@@ -33,4 +33,4 @@ def serve_file(path):
 
 # For running this file directly
 if __name__ == '__main__':
-    app.run()
+    app.run(port=int(os.environ.get('PORT') or 8000))

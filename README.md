@@ -13,6 +13,7 @@ Compatible with most Platform-as-a-service providers.
     export DATABASE_URL=postgresql+pypostgresql://username:password@host:port/database
     export WEB_CONCURRENCY=4
     export DEBUG=1
+    export PORT=8000
 
 PROTIP: spin up a database
 
