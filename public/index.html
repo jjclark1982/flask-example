@@ -24,7 +24,7 @@
     </p>
     <p>
       database test:
-      {% if db %}
+      {% if db.engine %}
         {% set result = db.engine.execute('select 2 + 2') %}
          2 + 2 = {{result.first()[0]}}</p>
       {% else %}

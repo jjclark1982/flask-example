@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 
 import os
-if 'DATABASE_URL' in os.environ:
-    import database
-else:
-    database = None
+import database
 import flask
 from flask import Flask, redirect, render_template, send_from_directory
 
