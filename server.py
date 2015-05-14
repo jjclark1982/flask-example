@@ -20,8 +20,8 @@ def serve_file(path):
             return redirect(path+'/')
 
     # serve a template file
-    basename, extname = os.path.splitext(path)
-    if extname == '.html':
+    (basename, extname) = os.path.splitext(path)
+    if extname.lower() == '.html':
         return render_template(path, db=database, flask=flask)
 
     # serve a static file
