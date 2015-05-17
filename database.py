@@ -8,7 +8,7 @@ engine = None
 try:
     databse_url = sqlalchemy.engine.url.make_url(os.environ['DATABASE_URL'])
     if databse_url.drivername == 'postgresql':
-        databse_url.drivername = 'postgresql+pypostgresql'
+        databse_url.drivername = 'postgresql+pg8000'
     engine = sqlalchemy.create_engine(databse_url)
     engine.connect()
 
