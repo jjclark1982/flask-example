@@ -10,15 +10,10 @@ Compatible with most Platform-as-a-service providers.
 
 ### Configuration
 
-    export DATABASE_URL=postgresql://user:pass@host:port/dbname
-    export WEB_CONCURRENCY=4
+    export DATABASE_URL=sqlite:///data/development.db
+    export WEB_CONCURRENCY=1
     export DEBUG=1
     export PORT=8000
-
-PROTIP: spin up a database
-
-    DB_CONTAINER=$(docker run -e POSTGRES_PASSWORD=$(pwgen 16 1) -P -d postgres)
-    docker inspect $DB_CONTAINER | grep 'POSTGRES_PASSWORD\|HostPort'
 
 ### Usage
 
