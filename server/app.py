@@ -1,5 +1,4 @@
 import os
-import flask
 from flask import Flask, redirect, render_template, send_from_directory
 if __package__:
     from . import database
@@ -13,10 +12,11 @@ app.debug = os.environ.get('DEBUG')
 # We serve files from the nearby 'public' folder
 app.template_folder = os.path.realpath(os.path.join(__file__,'..','..','public'))
 
-# Catch-all route handler
 @app.route('/', defaults={'path': '/'})
 @app.route('/<path:path>')
 def serve_file(path):
+    """Catch-all route handler"""
+
     # serve a folder
     if os.path.isdir(os.path.join(app.template_folder, path)):
         if path[-1] == '/':
@@ -27,12 +27,11 @@ def serve_file(path):
     # serve a template file
     (basename, extname) = os.path.splitext(path)
     if extname.lower() == '.html':
-        return render_template(path, db=database, flask=flask)
+        return render_template(path, db=database)
 
     # serve a static file
     else:
         return send_from_directory(app.template_folder, path)
-
 
 # When running this file directly, print a site map
 if __name__ == '__main__':
