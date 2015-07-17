@@ -1,5 +1,6 @@
 import os
-from flask import Flask, redirect, render_template, send_from_directory
+from flask import Flask, Markup, redirect, render_template, send_from_directory
+import markdown
 if __package__:
     from . import database
 else:
@@ -16,18 +17,25 @@ app.template_folder = os.path.realpath(os.path.join(__file__,'..','..','public')
 @app.route('/<path:path>')
 def serve_file(path):
     """Catch-all route handler"""
+    full_path = os.path.join(app.template_folder, path)
+    (basename, extname) = os.path.splitext(path)
 
     # serve a folder
-    if os.path.isdir(os.path.join(app.template_folder, path)):
+    if os.path.isdir(full_path):
         if path[-1] == '/':
             return serve_file(path + 'index.html')
         else:
             return redirect(path+'/')
 
-    # serve a template file
-    (basename, extname) = os.path.splitext(path)
+    # serve a jinja2 file
     if extname.lower() == '.html':
         return render_template(path, db=database)
+
+    # serve a markdown file
+    if extname.lower() == '.md':
+        f = open(full_path)
+        content = Markup(markdown.markdown(f.read()))
+        return Markup(content)
 
     # serve a static file
     else:
