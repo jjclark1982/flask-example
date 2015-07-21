@@ -6,16 +6,14 @@ Compatible with most Platform-as-a-service providers.
 
 ### Installation
 
-Install Python 3 and `pip`. Globally install `virtualenv`:
-
-    sudo pip install virtualenv
-
-Locally install this project's dependencies:
+Install Python 3 and `pip`. Use pip to install this project's dependencies:
 
     cd flask-example
-    virtualenv -p /usr/local/bin/python3 venv
-    source venv/bin/activate
     pip install -r requirements.txt
+
+### Usage
+
+    python server.py
 
 ### Configuration
 
@@ -26,6 +24,6 @@ Behavior is configured through environment variables. A typical development envi
     export DEBUG=1
     export PORT=8000
 
-### Usage
+If you store these in a file called `.env` (without "export"), they can be automatically set every time by `honcho`:
 
-    python server
+    honcho start
