@@ -1,45 +1,11 @@
-{% set title = "Flask Example" %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{title}}</title>
+    <title>My Web Page</title>
   </head>
   <body>
-    <h1>{{title}}</h1>
-    blah blah
-    <p>
-      template test:
-      2 + 3 = {{ 2 + 3 }}
-    </p>
-    <p>
-      filtering test:
-      {{ 'blah' }}
-      {{ '<b>blah</b>' }}
-      {{ '<b>blah</b>'|safe }}
-    </p>
-    <p>
-      variable test:
-      {% set x = 7 %}
-      x = {{x}}
-    </p>
-    <p>
-      database test:
-      {% if db.engine %}
-        {% set result = db.engine.execute('select 2 + 2') %}
-         2 + 2 = {{result.first()[0]}}</p>
-      {% else %}
-        no database
-      {% endif %}
-    </p>
-    <p>
-      static file test:
-      <script src="app.js"></script>
-    </p>
-    <p>
-      http objects:
-      {{ request }}
-      {{ session }}
-    </p>
+    <h1>My Web Page</h1>
+    <p>Hello.</p>
   </body>
 </html>

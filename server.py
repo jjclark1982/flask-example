@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 from flask import Flask, Markup, redirect, render_template, send_from_directory
 import markdown
@@ -25,19 +27,19 @@ def serve_file(path):
             return redirect(path+'/')
 
     # serve a jinja2 file
-    if extname.lower() == '.html':
+    elif extname.lower() == '.j2':
         return render_template(path, db=database)
 
     # serve a markdown file
-    if extname.lower() == '.md':
+    elif extname.lower() == '.md':
         f = open(full_path)
         content = Markup(markdown.markdown(f.read()))
         return Markup(content)
 
     # serve a static file
     else:
-        return send_from_directory(app.template_folder, path)
+        return send_from_directory(app.template_folder, path[1:])
 
 # When running this file directly, start a server
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get('PORT') or 8000))
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT') or 8000))
