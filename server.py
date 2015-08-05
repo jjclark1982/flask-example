@@ -27,7 +27,7 @@ def serve_file(path):
             return redirect(path+'/')
 
     # serve a jinja2 file
-    elif extname.lower() == '.j2':
+    elif extname.lower() == '.html':
         return render_template(path, db=database)
 
     # serve a markdown file
@@ -38,7 +38,7 @@ def serve_file(path):
 
     # serve a static file
     else:
-        return send_from_directory(app.template_folder, path[1:])
+        return send_from_directory(app.template_folder, path.lstrip('/'))
 
 # When running this file directly, start a server
 if __name__ == '__main__':
