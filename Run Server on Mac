@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
 # navigate to local dir
-cd $(dirname "$0")
+cd "$(dirname "$0")"
 
-# install venv if needed
+# create venv if needed
 if [ ! -d venv ]; then
     virtualenv -p python3 venv
 fi
@@ -15,6 +15,9 @@ if python -c 'import flask'; then
 else
     pip install -r requirements.txt
 fi
+
+# open a browser
+(sleep 1; open "http://localhost:${PORT:-8000}")
 
 # run the server
 ./server.py
