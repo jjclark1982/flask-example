@@ -10,7 +10,7 @@ fi
 source venv/bin/activate
 
 # install requirements if needed
-if python -c 'import flask'; then
+if python -c 'import server'; then
     true
 else
     pip install -r requirements.txt

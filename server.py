@@ -2,6 +2,7 @@
 
 import os
 from flask import Flask, Markup, redirect, render_template, send_from_directory
+import frontmatter
 import markdown
 import database
 
@@ -32,9 +33,14 @@ def serve_file(path):
 
     # serve a markdown file
     elif extname.lower() == '.md':
-        f = open(full_path)
-        content = Markup(markdown.markdown(f.read()))
-        return Markup(content)
+        with open(full_path) as f:
+            post = frontmatter.load(f)
+            content = Markup(markdown.markdown(post.content))
+            layout_path = os.path.join(app.template_folder, 'layout.html')
+            if os.path.exists(layout_path):
+                return render_template('layout.html', content=content, **post)
+            else:
+                return content
 
     # serve a static file
     else:
