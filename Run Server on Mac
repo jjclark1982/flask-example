@@ -20,4 +20,5 @@ fi
 (sleep 1; open "http://localhost:${PORT:-8000}")
 
 # run the server
+export DEBUG=1
 ./server.py
