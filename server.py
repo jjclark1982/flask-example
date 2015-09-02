@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from flask import Flask, Markup, redirect, render_template, send_from_directory
+from flask import Flask, Markup, request, redirect, render_template, send_from_directory
 import frontmatter
 import markdown
 import database
@@ -12,6 +12,14 @@ app.debug = os.environ.get('DEBUG')
 
 # We serve files from the nearby 'public' folder
 app.template_folder = os.path.realpath(os.path.join(__file__,'..','public'))
+
+data = dict()
+
+@app.route('/motd', methods=['GET', 'POST'])
+def motd():
+    if request.method == 'POST':
+        data['message'] = request.form.get('message')
+    return render_template('motd.html', data=data)
 
 @app.route('/', defaults={'path': '/'})
 @app.route('/<path:path>')
@@ -29,7 +37,7 @@ def serve_file(path):
 
     # serve a jinja2 file
     elif extname.lower() == '.html':
-        return render_template(path, db=database)
+        return render_template(path, db=database, data=data)
 
     # serve a markdown file
     elif extname.lower() == '.md':
