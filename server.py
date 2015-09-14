@@ -20,6 +20,15 @@ def serve_file(path):
     full_path = os.path.join(app.template_folder, path)
     (basename, extname) = os.path.splitext(path)
 
+    postnames = os.listdir(app.template_folder+'/posts')
+    posts = []
+    for postname in postnames:
+        if postname[0] != '.':
+            with open(app.template_folder+'/posts/'+postname) as f:
+                post = frontmatter.load(f)
+                post['filename'] = postname
+                posts.append(post)
+
     # serve a folder
     if os.path.isdir(full_path):
         if path[-1] == '/':
@@ -29,7 +38,7 @@ def serve_file(path):
 
     # serve a jinja2 file
     elif extname.lower() == '.html':
-        return render_template(path, db=database)
+        return render_template(path, db=database, posts=posts)
 
     # serve a markdown file
     elif extname.lower() == '.md':
